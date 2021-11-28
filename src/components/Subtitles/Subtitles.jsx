@@ -1,5 +1,6 @@
 import React, { useRef, useEffect } from 'react';
 import PropTypes from "prop-types";
+import useTranslate from '../../utils/useTranslate';
 import vtt from 'vtt.js';
 
 
@@ -7,7 +8,8 @@ import vtt from 'vtt.js';
 const Subtitles = () =>{
 
       const subtitle = useRef();
-      
+      const lastSubtitle = useRef("Default");
+      const { translate } = useTranslate();
  
       useEffect(() => {
       const fetchSubtitle = async() =>{
@@ -46,15 +48,20 @@ const Subtitles = () =>{
         
         
 
-        const onTimeUpdate = (time)=>{
+        const onTimeUpdate = async(time) =>{
   
             const { WebVTT } = vtt;
             const newSubtitle = findCurrentSubtitle(window.player.getMediaElement().currentTime);
-            console.log(newSubtitle);
-            WebVTT.processCues(window, [newSubtitle|| ""], document.getElementById('subs'));  
+            if(newSubtitle !== lastSubtitle.current){
+                  const translation = await translate(newSubtitle);
+                  console.log(translation);
+                  WebVTT.processCues(window, [translation|| ""], document.getElementById('subs'));  
+                  lastSubtitle.current = newSubtitle;
+            }
+           
       }
 
-        console.log(subtitle.current);
+      
 
 
       return <div id="subs">
