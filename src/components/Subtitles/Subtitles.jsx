@@ -52,11 +52,11 @@ const Subtitles = () =>{
   
             const { WebVTT } = vtt;
             const newSubtitle = findCurrentSubtitle(window.player.getMediaElement().currentTime);
-            if(newSubtitle !== lastSubtitle.current){
-                  const translation = await translate(newSubtitle);
-                  console.log(translation);
-                  WebVTT.processCues(window, [translation|| ""], document.getElementById('subs'));  
-                  lastSubtitle.current = newSubtitle;
+            if(newSubtitle !== undefined && newSubtitle?.text !== lastSubtitle.current){
+                  lastSubtitle.current = newSubtitle?.text;
+                  newSubtitle.text = await translate(newSubtitle.text);
+                  WebVTT.processCues(window, [newSubtitle|| ""], document.getElementById('subs'));  
+                 
             }
            
       }

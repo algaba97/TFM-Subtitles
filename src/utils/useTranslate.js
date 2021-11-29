@@ -14,16 +14,12 @@ const useTranslate = () => {
 
 
   const params = {
-    Text: 'Hola',
-    SourceLanguageCode: 'es',
+    SourceLanguageCode: 'pt',
     TargetLanguageCode: 'en',
   };
   const translate = async(text) =>{
-    debugger;
-   const translation = await awsTranslate.translateText({...params}).promise();
-   console.log( translation.TranslatedText);
-   debugger;
-   return "";
+   const translation = await awsTranslate.translateText({Text:text, ...params}).promise();
+   return translation.TranslatedText;
   } 
 
   return { translate };
