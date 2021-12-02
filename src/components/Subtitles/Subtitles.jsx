@@ -9,7 +9,7 @@ const Subtitles = () =>{
 
       const subtitle = useRef();
       const lastSubtitle = useRef("Default");
-      const { translate } = useTranslate();
+      const { translate } = useTranslate("Google");
  
       useEffect(() => {
       const fetchSubtitle = async() =>{
