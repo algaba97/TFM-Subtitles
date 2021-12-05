@@ -1,11 +1,19 @@
-import React, { useRef, useEffect } from "react";
+import React, { useRef, useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import shaka from "shaka-player";
 
 import Subtitles from "../Subtitles/Subtitles";
+import Selector from "../Selector/Selector";
 
+import options from "../../utils/options";
 const Player = () => {
   const player = useRef();
+  const [backgroundColor, setBackgroundColor] = useState("");
+  const [color, setColor] = useState("White");
+  const [font, setFont] = useState("Arial");
+  const [fontSize, setFontSize] = useState("12");
+
+  const callbacks = [setBackgroundColor, setColor, setFont, setFontSize];
 
   useEffect(() => {
     shaka.polyfill.installAll();
@@ -22,11 +30,28 @@ const Player = () => {
     );
   };
 
+  const showOptions = () =>
+    options.map((option, i) => (
+      <div style={{ width: "20%" }}>
+        <Selector
+          title={option?.title}
+          options={option?.options}
+          onChange={(selectedOption) => callbacks[i](selectedOption?.value)}
+        />
+      </div>
+    ));
+
   return (
     <div>
       <h2>Player</h2>
 
-      <div style={{position: "relative", display: "flex",justifyContent: "center"}}>
+      <div
+        style={{
+          position: "relative",
+          display: "flex",
+          justifyContent: "center",
+        }}
+      >
         <video
           id="video"
           width="640"
@@ -34,8 +59,15 @@ const Player = () => {
           controls
           autoPlay
         />
-        <Subtitles></Subtitles>
-       
+        <Subtitles
+          backgroundColor={backgroundColor}
+          color={color}
+          size={fontSize}
+          font={font}
+        ></Subtitles>
+      </div>
+      <div style={{ display: "flex", justifyContent: "space-evenly" }}>
+        {showOptions()}
       </div>
     </div>
   );

@@ -3,7 +3,12 @@ import PropTypes from "prop-types";
 import useTranslate from "../../utils/useTranslate";
 import vtt from "vtt.js";
 
-const Subtitles = () => {
+const Subtitles = ({
+  backgroundColor = "Green",
+  color = "White",
+  size = "10px",
+  font = "Arial",
+}) => {
   // Data containing all subtitle file data
   const subtitleData = useRef();
   // Last subtitle line translated
@@ -47,7 +52,7 @@ const Subtitles = () => {
   };
 
   const onTimeUpdate = async (time) => {
-//     const { WebVTT } = vtt;
+    //     const { WebVTT } = vtt;
     const newSubtitle = findCurrentSubtitle(
       window.player.getMediaElement().currentTime
     );
@@ -56,7 +61,7 @@ const Subtitles = () => {
       newSubtitle?.text !== lastSubtitle.current
     ) {
       lastSubtitle.current = newSubtitle?.text;
-      setSubtitle(await translate(newSubtitle.text));
+      // setSubtitle(await translate(newSubtitle.text));
       // Old format
       // WebVTT.processCues(window, [newSubtitle|| ""], document.getElementById('subs'));
     }
@@ -65,17 +70,17 @@ const Subtitles = () => {
   return (
     <div
       style={{
-        width: "640px",
-        height: "30px",
-        color: "white",
+        color: color,
+        fontFamily: font,
+        fontSize: size,
         zIndex: "1",
         position: "absolute",
         top: "0px",
-        background: "green",
+        background: backgroundColor !== "Disabled" ? backgroundColor : "",
         textAlign: "center",
       }}
     >
-      {subtitle}
+      {"TEST" + subtitle}
     </div>
   );
 };
