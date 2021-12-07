@@ -9,6 +9,7 @@ const Subtitles = ({
   color = "White",
   size = "10px",
   font = "Arial",
+  helpLanguage = "es",
 }) => {
   // Data containing all subtitle file data
   const subtitleData = useRef();
@@ -80,10 +81,12 @@ const Subtitles = ({
         background: backgroundColor !== "Disabled" ? backgroundColor : "",
         textAlign: "center",
         cursor: "pointer",
+        display: "flex",
       }}
     >
-      <Word value= {subtitle} />
-     
+      {subtitle?.split(/(\s+)/)?.map((word) => (
+        <Word value={word} helpLanguage={helpLanguage} />
+      ))}
     </div>
   );
 };

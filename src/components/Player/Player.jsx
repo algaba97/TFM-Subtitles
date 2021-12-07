@@ -12,8 +12,15 @@ const Player = () => {
   const [color, setColor] = useState("White");
   const [font, setFont] = useState("Arial");
   const [fontSize, setFontSize] = useState("12");
+  const [helpLanguage, setHelpLanguage] = useState("es");
 
-  const callbacks = [setBackgroundColor, setColor, setFont, setFontSize];
+  const callbacks = [
+    setBackgroundColor,
+    setColor,
+    setFont,
+    setFontSize,
+    setHelpLanguage,
+  ];
 
   useEffect(() => {
     shaka.polyfill.installAll();
@@ -32,7 +39,7 @@ const Player = () => {
 
   const showOptions = () =>
     options.map((option, i) => (
-      <div style={{ width: "20%" }}>
+      <div style={{ width: "15%" }}>
         <Selector
           title={option?.title}
           options={option?.options}
@@ -64,6 +71,7 @@ const Player = () => {
           color={color}
           size={fontSize}
           font={font}
+          helpLanguage={helpLanguage}
         ></Subtitles>
       </div>
       <div style={{ display: "flex", justifyContent: "space-evenly" }}>
