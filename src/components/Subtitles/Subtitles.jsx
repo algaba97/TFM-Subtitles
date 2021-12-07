@@ -2,6 +2,7 @@ import React, { useRef, useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import useTranslate from "../../utils/useTranslate";
 import vtt from "vtt.js";
+import Word from "./Word";
 
 const Subtitles = ({
   backgroundColor = "Green",
@@ -61,7 +62,7 @@ const Subtitles = ({
       newSubtitle?.text !== lastSubtitle.current
     ) {
       lastSubtitle.current = newSubtitle?.text;
-      // setSubtitle(await translate(newSubtitle.text));
+      setSubtitle(await translate(newSubtitle.text));
       // Old format
       // WebVTT.processCues(window, [newSubtitle|| ""], document.getElementById('subs'));
     }
@@ -78,9 +79,11 @@ const Subtitles = ({
         top: "0px",
         background: backgroundColor !== "Disabled" ? backgroundColor : "",
         textAlign: "center",
+        cursor: "pointer",
       }}
     >
-      {"TEST" + subtitle}
+      <Word value= {subtitle} />
+     
     </div>
   );
 };
