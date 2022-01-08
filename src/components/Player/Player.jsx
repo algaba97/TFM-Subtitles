@@ -31,9 +31,11 @@ const Player = () => {
     const video = document.getElementById("video");
     player.current = new shaka.Player(video);
     window.player = player.current;
-
+    const queryParams = new URLSearchParams(window.location.search);
+    const url = queryParams.get('video') || "https://brenopolanski.github.io/html5-video-webvtt-example/MIB2.mp4";
+    
     await player.current.load(
-      "https://brenopolanski.github.io/html5-video-webvtt-example/MIB2.mp4"
+      url
     );
   };
 

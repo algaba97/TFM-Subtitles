@@ -22,8 +22,10 @@ const Subtitles = ({
 
   useEffect(() => {
     const fetchSubtitle = async () => {
+    const queryParams = new URLSearchParams(window.location.search);
+    const url = queryParams.get('subtitle') ||  "https://brenopolanski.github.io/html5-video-webvtt-example/MIB2-subtitles-pt-BR.vtt";
       const response = await fetch(
-        "https://brenopolanski.github.io/html5-video-webvtt-example/MIB2-subtitles-pt-BR.vtt"
+        url
       );
       const text = await response.text();
       const { WebVTT } = vtt;
